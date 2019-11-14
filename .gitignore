@@ -102,3 +102,17 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# mac os
+.DS_Store
+
+# javascript
+node_modules
+
+# glull project
+data/
+!data/*.py
+
+src/figures/*.png
+
+

@@ -1,0 +1,10 @@
+{
+    "files.watcherExclude": {
+        "**/data/**": true
+    },
+    "search.exclude": {
+        "**/data": true
+    },
+    "python.pythonPath": "/Users/greg/anaconda3/envs/metis/bin/python",
+    "python.envFile": "${workspaceFolder}/.env"
+}
