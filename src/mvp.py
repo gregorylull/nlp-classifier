@@ -1,12 +1,6 @@
-# this file is just for the MVP portion of this project,
-# I plan to extract the functions to other files.
 import pandas as pd
 import numpy as np
-from sklearn.feature_extraction.text import CountVectorizer 
-from sklearn.decomposition import TruncatedSVD
-from sklearn.decomposition import NMF
 from sklearn.metrics.pairwise import cosine_similarity
-from sklearn.cluster import KMeans
 from sklearn.preprocessing import Normalizer
 
 from matplotlib import pyplot as plt
@@ -15,96 +9,46 @@ from matplotlib import colors as plt_colors
 import glob
 import pprint
 import math
+import pickle
 
 from collections import namedtuple
+from sklearn.pipeline import Pipeline
 
 # my functions
-from src import configs
 from src.utilities import doc_utils as gldocs
+from src.utilities import clean as glclean
+from src.utilities import dimension as gldim
+from src.utilities import model as glmodel
+from src.utilities import file_utils as glfile
 
+from src import configs
 clean_config = configs.clean
 model_config = configs.model
 corpus_config = configs.corpus
+CONFIG_RESULTS = configs.results_string
 
 ROOT = 'src/'
 DATA = 'data/ebook_output/'
 CURRENT = f'{ROOT}'
 FIGURES = f'{ROOT}figures/'
 
+# set to True to tune model params
+TUNE = False
+TOKENIZER_TYPE = 'count' # count | tfidf
+DIM_REDUCER_TYPE = 'lsa' # lsa | nmf
+MODEL_TYPE = 'kmeans'    # kmeans | dbscan
+
 pp = pprint.PrettyPrinter(indent = 4)
 
 # AB* is about 50 books
 GLOB_PATH = f'{DATA}**/{corpus_config.books_glob}'
 
-USE_MEMO_CACHE = True
+# when getting 10% of a book can just save it as a pickle file
+USE_DOC_RETRIEVAL_CACHE = True
 
 PATH_TO_BOOK = "data/ebook_output/Douglas Adams - Dirk Gently 01 Dirk Gently's Holistic Detective Agency.txt"
 
-# for lsa you don't want to transform first
-
-
-def tokenize(doc_array, tokenizer_type='count'):
-
-    if tokenizer_type == 'count':
-        vectorizer = CountVectorizer(stop_words='english')
-        doc_words = vectorizer.fit_transform(doc_array)
-        print('count vectorizer shape:', doc_words.shape)
-
-    return vectorizer, doc_words
-
-def get_docs_from_file(pathname):
-    with open(pathname, 'r') as readfile:
-        lines = readfile.readlines()
-    
-    return lines
-
-def get_docs(glob_paths):
-    results = []
-    for glob_path in glob_paths:
-        lines = get_docs_from_file(glob_path)
-        partitioned = partition_doc(lines, clean_config)
-        doc = clean_doc(partitioned, clean_config)
-        results.append(doc)
-
-    return results
-
-def partition_doc(text_array, clean_config):
-    # skip first 1000 and last 1000 lines, publisher info and appendix.
-    middle = text_array
-
-    if len(text_array) > clean_config.start + clean_config.end:
-        middle = text_array[clean_config.start:-clean_config.end]
-
-    # take a certain percentage (slices) of the pages
-    total_lines = len(text_array)
-    results = []
-    if clean_config.percentages and total_lines > clean_config.minimum_lines:
-        for start_percentage, end_percentage in clean_config.percentages:
-            start_index = math.floor(total_lines * start_percentage)
-            end_index = math.floor(total_lines * end_percentage)
-
-            results = [*results, *middle[start_index:end_index]]
-    else:
-        results = middle
-    
-    return results
-
-def clean_doc(text_array, clean_config):
-    doc = ' '.join(text_array)
-
-    return doc
-
-def reduce_dimension(docs, reducer_type='truncated_svd', model_config=model_config):
-    if reducer_type == 'truncated_svd':
-        reducer_model = TruncatedSVD(n_components = model_config.n_components)
-        doc_topic = reducer_model.fit_transform(docs)
-        explained_ratio = reducer_model.explained_variance_ratio_
-
-    print(f'{reducer_type} (n={model_config.n_components}) explained ratio:')
-    pp.pprint(explained_ratio)
-    return reducer_model, doc_topic
-    
-# pulled directly from lecture project 4 - Topic_Modeling_LSA_NMF
+# (glull) pulled directly from lecture project 4 - Topic_Modeling_LSA_NMF
 def display_topics(model, feature_names, no_top_words = 10, no_top = 10, topic_names=None):
     for ix, topic in enumerate(model.components_[:no_top]):
         if not topic_names or not topic_names[ix]:
@@ -133,63 +77,183 @@ def display_cluster(X,km=[],num_clusters=0, save_fig=f'{FIGURES}modeling_cluster
         plt.savefig(save_fig)
 
 # (glull) directly from lecture
-def fit_model(X):
-    num_clusters = model_config.knn_clusters
+# def get_doc_cluster(model, model_transformed_docs, target_cluster):
+#     doc_bools = model.labels_ == target_cluster
+#     cluster = model_transformed_docs[doc_bools, ]
 
-    # n_init, number of times the K-mean algorithm will run
-    km = KMeans(n_clusters=num_clusters, n_jobs=-1) 
-    X_trans = km.fit_transform(X)
-    display_cluster(X,km,num_clusters)
-
-    return km, X_trans
-
-def get_doc_cluster(model, model_transformed_docs, target_cluster):
-    doc_bools = model.labels_ == target_cluster
-    cluster = model_transformed_docs[doc_bools, ]
-
-    return doc_bools, cluster
+#     return doc_bools, cluster
 
 
-def sort_doc_cluster(indexes, cluster_reduced_dim, metric='cosine_similarity'):
-    sorted_results = []
+# def sort_doc_cluster(indexes, cluster_reduced_dim, metric='cosine_similarity'):
+#     sorted_results = []
 
-    if metric == 'cosine_similarity':
-        similarity = cosine_similarity(cluster)
+#     if metric == 'cosine_similarity':
+#         similarity = cosine_similarity(cluster)
 
 
-    return sorted_results
+#     return sorted_results
+
+def pipeline_fitting(glob_paths, tokenizer_type, reducer_type, model_type, model_config, tune=TUNE):
+
+    prefix = 'pipeline_fitting'
+    intermediary = ''.join(glob_paths) + CONFIG_RESULTS
+    postfix = f'{tokenizer_type}_{reducer_type}_{model_type}'
+    path_exists, path_to_file, filename, pickled_file = glfile.cache_file(prefix, intermediary, postfix)
+
+    if path_exists:
+        print('\ngetting cached pipeline_fitting')
+        return pickled_file
+    
+    docs_raw = gldocs.get_docs(glob_paths, clean_config, USE_DOC_RETRIEVAL_CACHE)
+
+    vect, doc_word = glclean.tokenize(docs_raw, tokenizer_type, model_config)
+    
+    reducer_model, docs_reduced = gldim.reduce_dimension(doc_word, reducer_type, model_config, tune)
+
+    model, X_transformed = glmodel.fit_model(docs_reduced, model_type, model_config, tune)
+
+    display_topics(reducer_model, vect.get_feature_names(), 10, 5)
+
+    pipeline = Pipeline([
+        (tokenizer_type, vect),
+        (reducer_type, reducer_model),
+        (model_type, model),
+    ])
+
+    results = {
+
+        # tokenize
+        'tokenizer': vect,
+        'tokenized_doc': doc_word,
+
+        # reduce dim
+        'dim_reducer': reducer_model,
+        'docs_reduced': docs_reduced,
+
+        # model
+        'cluster_model': model,
+        'X_transformed': X_transformed,
+
+        # pipeline
+        'pipeline': pipeline
+    }
+
+    # if the initial hashing is a non existant file, then write to file
+    with open(path_to_file, 'wb') as writefile:
+        pickle.dump(results, writefile)
+
+    return results
+
+def pipeline_transform(glob_paths, tokenizer, dim_reducer, cluster_model):
+    docs = gldocs.get_docs(glob_paths, clean_config, USE_DOC_RETRIEVAL_CACHE)
+
+    doc_word = tokenizer.transform(docs)
+    docs_reduced = dim_reducer.transform(doc_word)
+    X_transformed = cluster_model.transform(docs_reduced)
+    predicted = cluster_model.predict(docs_reduced)
+
+    display_topics(dim_reducer, tokenizer.get_feature_names(), 10, 5)
+
+    return {
+        # tokenize
+        'tokenized_doc': doc_word,
+
+        # reduce dim
+        'docs_reduced': docs_reduced,
+
+        # model
+        'X_transformed': X_transformed,
+
+        # predicted
+        'predicted': predicted
+    }
 
 
 def main():
     glob_paths = glob.glob(GLOB_PATH, recursive=True)
+    author_titles = gldocs.get_author_titles(glob_paths)
     print(f'\nLooking at {len(glob_paths)} docs.')
     pp.pprint(glob_paths[:3])
 
-    docs = get_docs(glob_paths)
+    pipeline_fitted = pipeline_fitting(
+        glob_paths,
+        TOKENIZER_TYPE,
+        DIM_REDUCER_TYPE,
+        MODEL_TYPE,
+        model_config,
+        TUNE
+    )
 
-    vect, doc_word = tokenize(docs)
+    # tokenize
+    tokenizer = pipeline_fitted['tokenizer']
+    tokenized_doc = pipeline_fitted['tokenized_doc']
 
-    reducer_model, docs_reduced = reduce_dimension(doc_word)
+    # reduce dim
+    dim_reducer = pipeline_fitted['dim_reducer']
+    docs_reduced = pipeline_fitted['docs_reduced']
 
-    display_topics(reducer_model, vect.get_feature_names())
+    # model
+    cluster_model = pipeline_fitted['cluster_model']
+    X_transformed = pipeline_fitted['X_transformed']
 
-    # noramlized
-    normalizer = Normalizer()
-
-
-    model, doc_word_fit_transformed = fit_model(docs_reduced)
-
+    # pipeline
+    pipeline = pipeline_fitted['pipeline']
 
     # given book
-    docs_given = get_docs([PATH_TO_BOOK])
-    doc_word_given = vect.transform(docs_given)
-    docs_reduced_given = reducer_model.transform(doc_word_given)
-    docs_word_given_transformed = model.transform(docs_reduced_given)
+    pipeline_given = pipeline_transform(
+        [PATH_TO_BOOK],
+        tokenizer,
+        dim_reducer,
+        cluster_model
+    )
 
-    return model, doc_word_fit_transformed, docs_word_given_transformed
+    # tokenize
+    tokenized_doc_given = pipeline_given['tokenized_doc']
+
+    # reduce dim
+    docs_reduced_given = pipeline_given['docs_reduced']
+
+    # model
+    X_transformed_given = pipeline_given['X_transformed']
+
+    # predicted
+    predicted_given = pipeline_given['predicted']
+
+    # get the cluster of the books.
+    # get the top 10 cosine_sim of the book in that cluster
+    # get the top 10 in that cluster ordered by goodreads rating
+
+
+    return pipeline_fitted, pipeline_given, author_titles
     
 
 if __name__ == '__main__':
     print(f'\nRunning MVP code\n')
-    model, doc, doc_given = main()
+    pipeline_fitted, pipeline_given, author_titles = main()
+
+    tokenizer = pipeline_fitted['tokenizer']
+    tokenized_doc = pipeline_fitted['tokenized_doc']
+
+    # reduce dim
+    dim_reducer = pipeline_fitted['dim_reducer']
+    docs_reduced = pipeline_fitted['docs_reduced']
+
+    # model
+    cluster_model = pipeline_fitted['cluster_model']
+    X_transformed = pipeline_fitted['X_transformed']
+
+    # pipeline
+    pipeline = pipeline_fitted['pipeline']
+
+    tokenized_doc_given = pipeline_given['tokenized_doc']
+
+    # reduce dim
+    docs_reduced_given = pipeline_given['docs_reduced']
+
+    # model
+    X_transformed_given = pipeline_given['X_transformed']
+
+    # predicted
+    predicted_given = pipeline_given['predicted']
+
     print('\nfinished\n')

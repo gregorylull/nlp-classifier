@@ -16,7 +16,7 @@ If I want to use Gutenberg books here's a strategy (and some pain points):
     - how to exclude encyclopedias
 3. Using recommendation data from Kaggle I can also create a recommendation system, which...should contain some supervised learning? I am not sure about this part of the project.
 
-I can display four things:
+I can display a copule things:
 1. top rankings for a cluster (not genre) based on ratings (which changes over time if there are more data / cleaning / modeling params)
 2. top rankings for a cluster based on cosine similarity
 3. books within a cluster compared to a target book sorted by cosine sim
@@ -34,7 +34,7 @@ I can display four things:
         - number of Lewis CS who played with fire clusters * sum of cosine_sim with got books
         - number of suzanne collins who played with fire clusters * sum of cosine_sim with got books
     
-8. goodreads to get ratings and review count (and existence) and decide on whether to include a corpus in my database.
+8. ~~goodreads to get ratings and review count (and existence) and decide on whether to include a corpus in my database.~~ DONE
 
 ### Book recommendation system (I will be doing this)
 MVP - kindle books convert to a .txt file, can probably discard the first ~500 lines (foreword, table of contents, publishers information) and the last ~200 lines.

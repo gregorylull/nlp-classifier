@@ -111,6 +111,7 @@ node_modules
 
 # glull project
 data/
+src/cached_docs/
 !data/*.py
 
 src/figures/*.png
