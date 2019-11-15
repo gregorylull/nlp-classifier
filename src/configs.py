@@ -4,8 +4,13 @@
 # 50 components and 10 clusters
 
 import numpy as np
+import pprint
+import re
 
-class CleanConfig: 
+pp = pprint.PrettyPrinter(indent=4)
+
+
+class CleanConfig:
     def __init__(self):
 
         # all books
@@ -13,8 +18,7 @@ class CleanConfig:
 
         # books that start with A-<character> only
         # as reference A-F is about 250 files
-        self.books_glob = '[a-fA-F]*.txt'
-
+        # self.books_glob = '[a-aA-A]*.txt'
 
         # skip publisher info, table of contents, forewords, etc.
         self.start = 50
@@ -43,7 +47,6 @@ class CleanConfig:
         #     (.8, .95)
         # ]
 
-
         # 60% middle
         # self.percentages = [
         #     (0.1, 0.3),
@@ -59,12 +62,18 @@ class CleanConfig:
             end = percentage[1]
             results.append(str(start))
             results.append(str(end))
-        
+
         results.append(self.books_glob)
 
-        return '_'.join(results)
+        joined = '_'.join(results)
+
+        clean_filename = re.sub(r'[^\w]', '', joined)
+
+        return clean_filename
+
 
 clean = CleanConfig()
+
 
 class ModelConfig:
     def __init__(self):
@@ -76,31 +85,27 @@ class ModelConfig:
         self.lsa__n_components_tune = 200
 
         self.nmf__n_components = 100
-        self.nmf__n_components_tune = 200
 
         self.kmeans__cluster_num = 20
         # self.kmeans__cluster_num_tune = np.arange(5, 100, 5)
         self.kmeans__cluster_num_tune = np.arange(5, 50, 5)
 
-        self.tfidf__ngram_range=(1,2)
-        self.count__ngram_range=(1,2)
+        self.tfidf__ngram_range = (1, 2)
+        self.count__ngram_range = (1, 2)
+
 
 model = ModelConfig()
 
-all_configs = [corpus, clean, model]
+all_configs = [clean, model]
 
 results = []
 for config in all_configs:
-    for key,val in vars(config).items():
+    for key, val in vars(config).items():
         results.append((key, val))
 
 results = sorted(results, key=lambda x: x[0])
-
 results_string = '__'.join([f'{pair[0]}-{pair[1]}' for pair in results])
 
-print(results_string)
+pp.pprint(results)
 
-
-
-
-
+print('\n', results_string)

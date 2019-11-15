@@ -34,12 +34,12 @@ CURRENT = f'{ROOT}'
 FIGURES = f'{ROOT}figures/'
 
 # set to True to tune model params
-TUNE = True
-TOKENIZER_TYPE = 'tfidf' # count | tfidf
-DIM_REDUCER_TYPE = 'nmf' # lsa | nmf
+TUNE = False
+TOKENIZER_TYPE = 'count'  # count | tfidf
+DIM_REDUCER_TYPE = 'nmf'  # lsa | nmf
 MODEL_TYPE = 'kmeans'    # kmeans | dbscan
 
-pp = pprint.PrettyPrinter(indent = 4)
+pp = pprint.PrettyPrinter(indent=4)
 
 # AB* is about 50 books
 GLOB_PATH = f'{DATA}**/{clean_config.books_glob}'
@@ -47,34 +47,40 @@ GLOB_PATH = f'{DATA}**/{clean_config.books_glob}'
 # when getting 10% of a book can just save it as a pickle file
 USE_DOC_RETRIEVAL_CACHE = True
 
-PATH_TO_BOOK = "data/ebook_output/Douglas Adams - Dirk Gently 01 Dirk Gently's Holistic Detective Agency.txt"
-PATH_TO_TEST_BOOKs = "data/ebook_output_test/*.txt"
+PATH_TO_BOOK = "data/ebook_output/Douglas Adams - Hitchhiker 02 The Restaurant at the End of the Universe.txt"
+PATH_TO_TEST_BOOKS = "data/ebook_output_test/*.txt"
 
 # (glull) pulled directly from lecture project 4 - Topic_Modeling_LSA_NMF
-def display_topics(model, feature_names, no_top_words = 10, no_top = 10, topic_names=None):
+
+
+def display_topics(model, feature_names, no_top_words=10, no_top=10, topic_names=None):
     for ix, topic in enumerate(model.components_[:no_top]):
         if not topic_names or not topic_names[ix]:
             print("\nTopic ", ix)
         else:
-            print("\nTopic: '",topic_names[ix],"'")
+            print("\nTopic: '", topic_names[ix], "'")
         print(", ".join([feature_names[i]
-                        for i in topic.argsort()[:-no_top_words - 1:-1]]))
+                         for i in topic.argsort()[:-no_top_words - 1:-1]]))
 
 # (glull) pulled directly from lecture project 4 - KMeansClustering
 # helper function that allows us to display data in 2 dimensions and highlights the clusters
-def display_cluster(X,km=[],num_clusters=0, save_fig=f'{FIGURES}modeling_clusters.png'):
+
+
+def display_cluster(X, km=[], num_clusters=0, save_fig=f'{FIGURES}modeling_clusters.png'):
     alpha = 0.5
     s = 20
     if num_clusters == 0:
         color = np.random.rand(3,)
-        plt.scatter(X[:,0],X[:,1],c = color[0],alpha = alpha,s = s)
+        plt.scatter(X[:, 0], X[:, 1], c=color[0], alpha=alpha, s=s)
     else:
         cluster_range = range(num_clusters)
         for i in cluster_range:
             color = [list(np.random.rand(3,))]
-            plt.scatter(X[km.labels_==i,0],X[km.labels_==i,1],c = color,alpha = alpha,s=s)
-            plt.scatter(km.cluster_centers_[i][0],km.cluster_centers_[i][1],c = color, marker = 'x', s = 100)
-    
+            plt.scatter(X[km.labels_ == i, 0], X[km.labels_ ==
+                                                 i, 1], c=color, alpha=alpha, s=s)
+            plt.scatter(km.cluster_centers_[i][0], km.cluster_centers_[
+                        i][1], c=color, marker='x', s=100)
+
     if save_fig:
         plt.savefig(save_fig)
 
@@ -100,19 +106,23 @@ def pipeline_fitting(glob_paths, tokenizer_type, reducer_type, model_type, model
     prefix = 'pipeline_fitting'
     intermediary = ''.join(glob_paths) + CONFIG_RESULTS
     postfix = f'{tokenizer_type}_{reducer_type}_{model_type}'
-    path_exists, path_to_file, filename, pickled_file = glfile.cache_file(prefix, intermediary, postfix)
+    path_exists, path_to_file, filename, pickled_file = glfile.cache_file(
+        prefix, intermediary, postfix)
 
     if path_exists:
         print('\ngetting cached pipeline_fitting')
         return pickled_file
-    
-    docs_raw = gldocs.get_docs(glob_paths, clean_config, USE_DOC_RETRIEVAL_CACHE)
+
+    docs_raw = gldocs.get_docs(
+        glob_paths, clean_config, USE_DOC_RETRIEVAL_CACHE)
 
     vect, doc_word = glclean.tokenize(docs_raw, tokenizer_type, model_config)
-    
-    reducer_model, docs_reduced = gldim.reduce_dimension(doc_word, reducer_type, model_config, tune)
 
-    model, X_transformed = glmodel.fit_model(docs_reduced, model_type, model_config, tune)
+    reducer_model, docs_reduced = gldim.reduce_dimension(
+        doc_word, reducer_type, model_config, tune)
+
+    model, X_transformed = glmodel.fit_model(
+        docs_reduced, model_type, model_config, tune)
 
     display_topics(reducer_model, vect.get_feature_names(), 10, 5)
 
@@ -142,10 +152,11 @@ def pipeline_fitting(glob_paths, tokenizer_type, reducer_type, model_type, model
 
     # if the initial hashing is a non existant file, then write to file
     with open(path_to_file, 'wb') as writefile:
-        print('saving cached pipeline', path_to_file)
+        print('  saving cached pipeline', path_to_file)
         pickle.dump(results, writefile)
 
     return results
+
 
 def pipeline_transform(glob_paths, tokenizer, dim_reducer, cluster_model):
     docs = gldocs.get_docs(glob_paths, clean_config, USE_DOC_RETRIEVAL_CACHE)
@@ -155,7 +166,7 @@ def pipeline_transform(glob_paths, tokenizer, dim_reducer, cluster_model):
     X_transformed = cluster_model.transform(docs_reduced)
     predicted = cluster_model.predict(docs_reduced)
 
-    display_topics(dim_reducer, tokenizer.get_feature_names(), 10, 5)
+    display_topics(dim_reducer, tokenizer.get_feature_names(), 20, 10)
 
     return {
         # tokenize
@@ -226,9 +237,8 @@ def main():
     # get the top 10 cosine_sim of the book in that cluster
     # get the top 10 in that cluster ordered by goodreads rating
 
-
     return pipeline_fitted, pipeline_given, author_titles
-    
+
 
 if __name__ == '__main__':
     print(f'\nRunning MVP code\n')
