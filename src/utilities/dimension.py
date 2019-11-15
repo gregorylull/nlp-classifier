@@ -34,7 +34,26 @@ def reduce_dimension(docs, reducer_type, model_config, tune):
 
 
     elif reducer_type == 'nmf':
-        reducer_model = NMF(n_components = model_config.n_components)
+
+        if tune:
+            reducer_model = NMF(n_components = model_config.nmf__n_components_tune)
+            doc_reduced = reducer_model.fit_transform(docs)
+            print('plotting lsa components:', model_config.nmf__n_components_tune)
+
+            fig = plt.figure(figsize=(10, 5))
+            plt.plot(range(model_config.nmf__n_components_tune), np.cumsum(reducer_model.explained_variance_ratio_))
+            plt.title('Components for dimension reduction')
+            plt.xlabel('Number of components')
+            plt.ylabel('Cumulative variance explained')
+            plt.savefig(
+                f'{FIGURES}nmf_components.png',
+                dpi=1200,
+                bbox_inches='tight',
+            )
+            plt.close(fig)
+        
+        else: 
+            reducer_model = NMF(n_components = model_config.nmf__n_components)
 
     doc_reduced = reducer_model.fit_transform(docs)
     explained_ratio = reducer_model.explained_variance_ratio_

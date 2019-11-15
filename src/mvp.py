@@ -1,3 +1,5 @@
+# this was mvp but has evolved into the final project
+
 import pandas as pd
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
@@ -24,7 +26,6 @@ from src.utilities import file_utils as glfile
 from src import configs
 clean_config = configs.clean
 model_config = configs.model
-corpus_config = configs.corpus
 CONFIG_RESULTS = configs.results_string
 
 ROOT = 'src/'
@@ -33,20 +34,21 @@ CURRENT = f'{ROOT}'
 FIGURES = f'{ROOT}figures/'
 
 # set to True to tune model params
-TUNE = False
-TOKENIZER_TYPE = 'count' # count | tfidf
-DIM_REDUCER_TYPE = 'lsa' # lsa | nmf
+TUNE = True
+TOKENIZER_TYPE = 'tfidf' # count | tfidf
+DIM_REDUCER_TYPE = 'nmf' # lsa | nmf
 MODEL_TYPE = 'kmeans'    # kmeans | dbscan
 
 pp = pprint.PrettyPrinter(indent = 4)
 
 # AB* is about 50 books
-GLOB_PATH = f'{DATA}**/{corpus_config.books_glob}'
+GLOB_PATH = f'{DATA}**/{clean_config.books_glob}'
 
 # when getting 10% of a book can just save it as a pickle file
 USE_DOC_RETRIEVAL_CACHE = True
 
 PATH_TO_BOOK = "data/ebook_output/Douglas Adams - Dirk Gently 01 Dirk Gently's Holistic Detective Agency.txt"
+PATH_TO_TEST_BOOKs = "data/ebook_output_test/*.txt"
 
 # (glull) pulled directly from lecture project 4 - Topic_Modeling_LSA_NMF
 def display_topics(model, feature_names, no_top_words = 10, no_top = 10, topic_names=None):
@@ -140,6 +142,7 @@ def pipeline_fitting(glob_paths, tokenizer_type, reducer_type, model_type, model
 
     # if the initial hashing is a non existant file, then write to file
     with open(path_to_file, 'wb') as writefile:
+        print('saving cached pipeline', path_to_file)
         pickle.dump(results, writefile)
 
     return results

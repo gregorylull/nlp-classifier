@@ -26,7 +26,7 @@ def cache_file(prefix, string, postfix, ext='.pkl'):
 
     if path_exists:
         with open(path_to_file, 'rb') as readfile:
-             pickled_file = pickle.load(readfile)
+            pickled_file = pickle.load(readfile)
 
     return path_exists, path_to_file, filename, pickled_file
 

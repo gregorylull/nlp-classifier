@@ -2,9 +2,13 @@
 import math
 import glob
 import pickle
+import spacy
 
 from src import configs
 from src.utilities import file_utils as glfile
+
+import spacy
+spacy_nlp = spacy.load('en')
 
 DOC_PREFIX = 'doc'
 
@@ -59,7 +63,14 @@ def partition_doc(text_array, clean_config):
     return results
 
 def clean_doc(text_array, clean_config):
-    doc = ' '.join(text_array)
+    results = []
+
+    for text in text_array:
+        spacy_doc = spacy_nlp(text.strip())
+        result = [word.lemma_ for word in spacy_doc if not word.is_stop]
+        results.append(' '.join(result))
+
+    doc = ' '.join(results)
 
     return doc
 

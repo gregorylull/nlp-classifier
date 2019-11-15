@@ -26,13 +26,23 @@ I can display a copule things:
 7. what clustering looks like when I am using a metric such as:
     - minimizing count of <series> clusters * <cosine_sim of those books> e.g.:
         - number of HP clusters * sum of cosine_sim with harry potter books
+            - 2 books
         - number of hitchhiker clusters * sum of cosine_sim with hitchiker books
+            - 2
         - number of got clusters * sum of cosine_sim with got books
         - number of orson scott card clusters * sum of cosine_sim with got books
+            - 2
         - number of frank herbert clusters * sum of cosine_sim with got books
+            - 2
         - number of steig larson girl who played with fire clusters * sum of cosine_sim with got books
+            - 1
         - number of Lewis CS who played with fire clusters * sum of cosine_sim with got books
+            - 
         - number of suzanne collins who played with fire clusters * sum of cosine_sim with got books
+            - 1
+        - Arthur conan doye
+        - bible 
+        - charles dickens
     
 8. ~~goodreads to get ratings and review count (and existence) and decide on whether to include a corpus in my database.~~ DONE
 

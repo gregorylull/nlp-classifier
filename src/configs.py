@@ -5,20 +5,17 @@
 
 import numpy as np
 
-
-class CorpusConfig():
+class CleanConfig: 
     def __init__(self):
 
         # all books
         self.books_glob = '*.txt'
 
-        # books that start with A-C only
-        self.books_glob = '[a-cA-C]*.txt'
+        # books that start with A-<character> only
+        # as reference A-F is about 250 files
+        self.books_glob = '[a-fA-F]*.txt'
 
-corpus = CorpusConfig()
 
-class CleanConfig: 
-    def __init__(self):
         # skip publisher info, table of contents, forewords, etc.
         self.start = 50
 
@@ -62,6 +59,8 @@ class CleanConfig:
             end = percentage[1]
             results.append(str(start))
             results.append(str(end))
+        
+        results.append(self.books_glob)
 
         return '_'.join(results)
 
@@ -74,10 +73,14 @@ class ModelConfig:
         # for 40k words that's 400 components 4000 components.
         # However, I only have 1000 documents.
         self.lsa__n_components = 100
-        self.lsa__n_components_tune = 800
+        self.lsa__n_components_tune = 200
+
+        self.nmf__n_components = 100
+        self.nmf__n_components_tune = 200
 
         self.kmeans__cluster_num = 20
-        self.kmeans__cluster_num_tune = np.arange(5, 100, 5)
+        # self.kmeans__cluster_num_tune = np.arange(5, 100, 5)
+        self.kmeans__cluster_num_tune = np.arange(5, 50, 5)
 
         self.tfidf__ngram_range=(1,2)
         self.count__ngram_range=(1,2)
