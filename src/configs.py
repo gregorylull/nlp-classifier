@@ -18,7 +18,7 @@ class CleanConfig:
 
         # books that start with A-<character> only
         # as reference A-F is about 250 files
-        # self.books_glob = '[a-aA-A]*.txt'
+        self.books_glob = '[a-cA-C]*.txt'
 
         # skip publisher info, table of contents, forewords, etc.
         self.start = 50

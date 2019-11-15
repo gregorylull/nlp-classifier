@@ -35,8 +35,8 @@ FIGURES = f'{ROOT}figures/'
 
 # set to True to tune model params
 TUNE = False
-TOKENIZER_TYPE = 'count'  # count | tfidf
-DIM_REDUCER_TYPE = 'nmf'  # lsa | nmf
+TOKENIZER_TYPE = 'tfidf'  # count | tfidf
+DIM_REDUCER_TYPE = 'lsa'  # lsa | nmf
 MODEL_TYPE = 'kmeans'    # kmeans | dbscan
 
 pp = pprint.PrettyPrinter(indent=4)
@@ -47,7 +47,7 @@ GLOB_PATH = f'{DATA}**/{clean_config.books_glob}'
 # when getting 10% of a book can just save it as a pickle file
 USE_DOC_RETRIEVAL_CACHE = True
 
-PATH_TO_BOOK = "data/ebook_output/Douglas Adams - Hitchhiker 02 The Restaurant at the End of the Universe.txt"
+PATH_TO_BOOK = "data/ebook_output_test/Douglas Adams - Hitchhiker 02 The Restaurant at the End of the Universe.txt"
 PATH_TO_TEST_BOOKS = "data/ebook_output_test/*.txt"
 
 # (glull) pulled directly from lecture project 4 - Topic_Modeling_LSA_NMF
@@ -166,6 +166,7 @@ def pipeline_transform(glob_paths, tokenizer, dim_reducer, cluster_model):
     X_transformed = cluster_model.transform(docs_reduced)
     predicted = cluster_model.predict(docs_reduced)
 
+    print('topics for "test" data')
     display_topics(dim_reducer, tokenizer.get_feature_names(), 20, 10)
 
     return {
@@ -215,11 +216,13 @@ def main():
 
     # given book
     pipeline_given = pipeline_transform(
-        [PATH_TO_BOOK],
+        glob.glob(PATH_TO_TEST_BOOKS),
         tokenizer,
         dim_reducer,
         cluster_model
     )
+
+    display_cluster(X_transformed, cluster_model, model_config.kmeans__cluster_num)
 
     # tokenize
     tokenized_doc_given = pipeline_given['tokenized_doc']
@@ -270,3 +273,30 @@ if __name__ == '__main__':
     predicted_given = pipeline_given['predicted']
 
     print('\nfinished\n')
+
+    # get recs
+    glob_paths = glob.glob(GLOB_PATH, recursive=True)
+    author_titles_train = np.array(gldocs.get_author_titles(glob_paths))
+
+    test_books = glob.glob(PATH_TO_TEST_BOOKS)
+    author_title_test = np.array(gldocs.get_author_titles(test_books))
+
+    results = {}
+    for index, predicted in enumerate(predicted_given):
+        print('\n\n\n',author_title_test[index])
+        similar = author_titles_train[cluster_model.labels_ == predicted]
+        csim = cosine_similarity(docs_reduced, docs_reduced_given[index].reshape(1, 100)).round(3)
+        zipped = list(zip(similar, csim))
+        sortedz = sorted(zipped, key=lambda x: x[1][0], reverse=True)
+        top10 = sortedz[:10]
+        pp.pprint((top10[0], top10[1][0]))
+        
+
+
+
+
+
+
+
+
+    
