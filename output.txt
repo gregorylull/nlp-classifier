@@ -1,0 +1,361 @@
+[   ('books_glob', '[a-cA-C]*.txt'),
+    ('count__ngram_range', (1, 2)),
+    ('end', 50),
+    ('kmeans__cluster_num', 20),
+    ('kmeans__cluster_num_tune', array([ 5, 10, 15, 20, 25, 30, 35, 40, 45])),
+    ('lsa__n_components', 100),
+    ('lsa__n_components_tune', 200),
+    ('minimum_lines', 500),
+    ('nmf__n_components', 100),
+    ('percentages', [(0.05, 0.25)]),
+    ('start', 50),
+    ('tfidf__ngram_range', (1, 2))]
+
+ books_glob-[a-cA-C]*.txt__count__ngram_range-(1, 2)__end-50__kmeans__cluster_num-20__kmeans__cluster_num_tune-[ 5 10 15 20 25 30 35 40 45]__lsa__n_components-100__lsa__n_components_tune-200__minimum_lines-500__nmf__n_components-100__percentages-[(0.05, 0.25)]__start-50__tfidf__ngram_range-(1, 2)
+
+ Looking at: ('tfidf', 'lsa', 'kmeans')
+
+Running MVP code
+
+
+Looking at 146 docs.
+[   'data/ebook_output/Anton Pavlovich Chekhov - swan song.txt',
+    'data/ebook_output/Amy Poeppel - Small Admissions.txt',
+    'data/ebook_output/Charles Dickens - hard times.txt']
+
+getting cached pipeline_fitting
+searching for cached docs... src/cached_docs/doc_005_025_acACtxt_7298c3f2b5b8917f61938411d713b2e41892aaa3.pkl
+
+  getting cached docs doc_005_025_acACtxt_7298c3f2b5b8917f61938411d713b2e41892aaa3.pkl
+topics for "test" data
+
+Topic  0
+pron, say, know, like, look, come, think, time, man, good, mr, tell, day, want, little, pron know, way, thing, hand, ask
+
+Topic  1
+garfield, man, lincoln, seward, new, time, day, year, war, sleep, state, president, washington, russell, union, bitcoin, hamilton, sumter, come, old
+
+Topic  2
+mr, say, oliver, sir, mr pickwick, say mr, mrs, pickwick, gentleman, squeers, man, boffin, pecksniff, holmes, little, mr pecksniff, come, gradgrind, dear, lucy
+
+Topic  3
+garfield, pg, holmes, pron, seward, hamilton, lincoln, man, thy, russell, guiteau, sub, confederate, union, washington, war, er, president, shall, adams
+
+Topic  4
+mr, holmes, customer, bitcoin, amazon, bezos, mr pickwick, pickwick, boffin, oliver, pecksniff, banking, mrs, say mr, sir, mr pecksniff, bank, gentleman, gradgrind, product
+
+Topic  5
+pg, thy, er, luke, thee, customer, thou, marcia, amazon, ne er, bezos, sub, bitcoin, shall, banking, beowulf, luce, hrothgar, mamma, bud
+
+Topic  6
+bud, luce, marie, carl, count, foster, nina, assad, werner, car, kat, marilyn, simon, like, lexie, lily, look, mia, marie laure, laure
+
+Topic  7
+cleopatra, antony, holmes, danny, caesar, roran, nina, palestine, octavian, rourke, wang, cheng, xin, cheng xin, king, count, man, bohr, mr holmes, cora
+
+Topic  8
+bud, bezos, amazon, holmes, luce, little charles, little, customer, middlesex, bank, neighbour, house, branch, banking, mcgregor, mr mcgregor, snow, come little, come, little boy
+
+Topic  9
+cinderella, cleopatra, antony, glass slipper, nina, slipper, count, caesar, prince, ball, princess, godmother, octavian, treplieff, ball room, cora, sister, nate, blakeney, hear clock
+
+finished
+
+
+
+
+ Arthur Conan Doyle the hound of the baskervilles
+[   ('Anne Brontë', 'the tenant of wildfell hall', 0.985),
+    ('Andy Weir', 'Artemis', 0.928),
+    ('Christina Kline', 'Orphan Train', 0.911),
+    (   'Cheryl Strayed',
+        'Wild_ From Lost to Found on the Pacific Crest Trail',
+        0.911),
+    ('Ben Ryder Howe', 'My Korean Deli_ Risking It All_ore (v5.0)', 0.902),
+    ('Ben Winter', 'Underground Airlines', 0.901),
+    ('A.J. Finn', 'The Woman in the Window', 0.895),
+    (   'Atul Gawande',
+        'Being Mortal_Medicine and What Matters in the End',
+        0.893),
+    ('Charlotte Brontë', 'the professor', 0.886),
+    ('Ben Horowitz', 'The Hard Thing About Hard Thing', 0.88)]
+
+
+
+ C. S. Lewis Prince Caspian
+[   ('Charles Dickens', 'oliver twist', 0.71),
+    ('A. E. W. (Alfred Edward Woodley) Mason', 'the summons', 0.703),
+    ('Anthony Pryde', 'nightfall', 0.7),
+    ('Anne Tyler', 'A Spool of Blue Thread', 0.686),
+    ('Aristophanes', 'lysistrata', 0.677),
+    ('Chad Harbach', 'The Art of Fielding', 0.675),
+    ('Coningsby Dawson', 'the little house', 0.672),
+    ('Charles A. (Charles Arthur) Conant', 'alexander hamilton', 0.67),
+    ('Ben Jonson', 'the alchemist', 0.67),
+    ('Anton Pavlovich Chekhov', 'the seagull', 0.664)]
+
+
+
+ Suzanne Collins Catching Fire
+[   ('Ben Winter', 'Underground Airlines', 0.997),
+    (   'Atul Gawande',
+        'Being Mortal_Medicine and What Matters in the End',
+        0.996),
+    (   'Cheryl Strayed',
+        'Wild_ From Lost to Found on the Pacific Crest Trail',
+        0.993),
+    ('Ben Horowitz', 'The Hard Thing About Hard Thing', 0.99),
+    ('A.J. Finn', 'The Woman in the Window', 0.987),
+    ('Charlotte Brontë', 'the professor', 0.98),
+    ('Andy Weir', 'Artemis', 0.98),
+    ('Christina Kline', 'Orphan Train', 0.977),
+    ('Angie Thomas', 'The Hate U Give', 0.97),
+    ('Blake Crouch', 'Dark Matter', 0.958)]
+
+
+
+ J.K. Rowling Harry Potter and the Deathly Hallows (7)
+[   ('Anne Tyler', 'A Spool of Blue Thread', 0.973),
+    ('Chad Harbach', 'The Art of Fielding', 0.967),
+    ('A. E. W. (Alfred Edward Woodley) Mason', 'the summons', 0.965),
+    ('Ben Jonson', 'the alchemist', 0.959),
+    ('Anton Pavlovich Chekhov', 'the seagull', 0.958),
+    ('Anthony Pryde', 'nightfall', 0.957),
+    ('Coningsby Dawson', 'the little house', 0.956),
+    ('Charles Dickens', 'oliver twist', 0.948),
+    ('Aristophanes', 'lysistrata', 0.947),
+    ('Celeste Ng', 'Little Fires Everywhere', 0.945)]
+
+
+
+ Frank Herbert Dune 02 Dune Messiah
+[   (   'Cheryl Strayed',
+        'Wild_ From Lost to Found on the Pacific Crest Trail',
+        0.968),
+    (   'Atul Gawande',
+        'Being Mortal_Medicine and What Matters in the End',
+        0.952),
+    ('Ben Winter', 'Underground Airlines', 0.947),
+    ('Christina Kline', 'Orphan Train', 0.947),
+    ('A.J. Finn', 'The Woman in the Window', 0.943),
+    ('Andy Weir', 'Artemis', 0.94),
+    ('Ben Horowitz', 'The Hard Thing About Hard Thing', 0.939),
+    ('Charlotte Brontë', 'the professor', 0.936),
+    ('Anne Brontë', 'the tenant of wildfell hall', 0.925),
+    ('Aziz Ansari', 'Modern Romance', 0.924)]
+
+
+
+ Douglas Adams Hitchhiker 02 The Restaurant at the End of the Universe
+[   (   'Cheryl Strayed',
+        'Wild_ From Lost to Found on the Pacific Crest Trail',
+        0.974),
+    ('Blake Crouch', 'Dark Matter', 0.969),
+    ('A.J. Finn', 'The Woman in the Window', 0.968),
+    ('Aziz Ansari', 'Modern Romance', 0.957),
+    (   'Atul Gawande',
+        'Being Mortal_Medicine and What Matters in the End',
+        0.951),
+    ('Christina Kline', 'Orphan Train', 0.951),
+    ('Andy Weir', 'Artemis', 0.949),
+    ('Ben Winter', 'Underground Airlines', 0.948),
+    ('Ben Horowitz', 'The Hard Thing About Hard Thing', 0.947),
+    ('Ben Ryder Howe', 'My Korean Deli_ Risking It All_ore (v5.0)', 0.941)]
+
+
+
+ Charles Dickens great expectations
+[   (   'Cheryl Strayed',
+        'Wild_ From Lost to Found on the Pacific Crest Trail',
+        0.985),
+    ('Andy Weir', 'Artemis', 0.973),
+    ('A.J. Finn', 'The Woman in the Window', 0.972),
+    ('Christina Kline', 'Orphan Train', 0.972),
+    ('Ben Winter', 'Underground Airlines', 0.971),
+    ('Ben Ryder Howe', 'My Korean Deli_ Risking It All_ore (v5.0)', 0.968),
+    (   'Atul Gawande',
+        'Being Mortal_Medicine and What Matters in the End',
+        0.967),
+    ('Ben Horowitz', 'The Hard Thing About Hard Thing', 0.961),
+    ('Anne Brontë', 'the tenant of wildfell hall', 0.96),
+    ('Blake Crouch', 'Dark Matter', 0.958)]
+
+
+
+ Charles Dickens a tale of two cities
+[   ('Ben Ryder Howe', 'My Korean Deli_ Risking It All_ore (v5.0)', 0.98),
+    (   'Cheryl Strayed',
+        'Wild_ From Lost to Found on the Pacific Crest Trail',
+        0.937),
+    ('Christina Kline', 'Orphan Train', 0.93),
+    ('Andy Weir', 'Artemis', 0.928),
+    ('Anne Brontë', 'the tenant of wildfell hall', 0.925),
+    ('A.J. Finn', 'The Woman in the Window', 0.913),
+    ('Ben Winter', 'Underground Airlines', 0.902),
+    (   'Atul Gawande',
+        'Being Mortal_Medicine and What Matters in the End',
+        0.901),
+    ('Blake Crouch', 'Dark Matter', 0.896),
+    ('Charlotte Brontë', 'the professor', 0.893)]
+
+
+
+ Stieg Larsson The Girl Who Played with Fire
+[   (   'Cheryl Strayed',
+        'Wild_ From Lost to Found on the Pacific Crest Trail',
+        0.993),
+    (   'Atul Gawande',
+        'Being Mortal_Medicine and What Matters in the End',
+        0.992),
+    ('Ben Winter', 'Underground Airlines', 0.989),
+    ('A.J. Finn', 'The Woman in the Window', 0.987),
+    ('Ben Horowitz', 'The Hard Thing About Hard Thing', 0.983),
+    ('Charlotte Brontë', 'the professor', 0.975),
+    ('Andy Weir', 'Artemis', 0.974),
+    ('Christina Kline', 'Orphan Train', 0.974),
+    ('Angie Thomas', 'The Hate U Give', 0.969),
+    ('Aziz Ansari', 'Modern Romance', 0.96)]
+
+
+
+ Orson Scott Card Children of the Mind
+[   (   'Cheryl Strayed',
+        'Wild_ From Lost to Found on the Pacific Crest Trail',
+        0.956),
+    (   'Atul Gawande',
+        'Being Mortal_Medicine and What Matters in the End',
+        0.946),
+    ('A.J. Finn', 'The Woman in the Window', 0.942),
+    ('Ben Winter', 'Underground Airlines', 0.942),
+    ('Christina Kline', 'Orphan Train', 0.94),
+    ('Ben Horowitz', 'The Hard Thing About Hard Thing', 0.936),
+    ('Andy Weir', 'Artemis', 0.936),
+    ('Blake Crouch', 'Dark Matter', 0.929),
+    ('Aziz Ansari', 'Modern Romance', 0.928),
+    ('Charlotte Brontë', 'the professor', 0.928)]
+
+
+
+ J.K. Rowling Harry Potter and the Chamber of Secrets (2)
+[   ('Charles A. (Charles Arthur) Conant', 'alexander hamilton', 0.949),
+    ('A. E. W. (Alfred Edward Woodley) Mason', 'the summons', 0.935),
+    ('Anne Tyler', 'A Spool of Blue Thread', 0.93),
+    ('Anthony Pryde', 'nightfall', 0.929),
+    ('Chad Harbach', 'The Art of Fielding', 0.923),
+    ('Ben Jonson', 'the alchemist', 0.919),
+    ('Anton Pavlovich Chekhov', 'the seagull', 0.912),
+    ('Coningsby Dawson', 'the little house', 0.911),
+    ('Charles Dickens', 'oliver twist', 0.904),
+    ('Aristophanes', 'lysistrata', 0.901)]
+
+
+
+ Jane Austen pride and prejudice
+[   ('Charles A. (Charles Arthur) Conant', 'alexander hamilton', 0.986),
+    ('Ben Jonson', 'the alchemist', 0.957),
+    ('Charles Dickens', 'little dorrit', 0.954),
+    ('Chad Harbach', 'The Art of Fielding', 0.945),
+    ('Amor Towles', 'A Gentleman in Moscow', 0.942),
+    ('Anthony Pryde', 'nightfall', 0.941),
+    ('Chloe Benjamin', 'The Immortalists', 0.938),
+    ('Charles Dickens', 'oliver twist', 0.937),
+    ('Anne Tyler', 'A Spool of Blue Thread', 0.933),
+    ('Cleopatra_ A Life', 'Stacy Schiff', 0.922)]
+
+
+
+ Church of Jesus Christ of Latter day Saints the book of mormon
+[   ('Charles Dickens', 'oliver twist', 0.847),
+    ('Ben Jonson', 'the alchemist', 0.838),
+    ('Anthony Pryde', 'nightfall', 0.837),
+    ('Amor Towles', 'A Gentleman in Moscow', 0.825),
+    ('Chad Harbach', 'The Art of Fielding', 0.815),
+    ('Charles Dickens', 'little dorrit', 0.807),
+    ('Charles A. (Charles Arthur) Conant', 'alexander hamilton', 0.804),
+    ('Chloe Benjamin', 'The Immortalists', 0.795),
+    ('Coningsby Dawson', 'the little house', 0.794),
+    ('Anne Tyler', 'A Spool of Blue Thread', 0.793)]
+
+
+
+ C. S. Lewis Magician's Nephew, The
+[   ('Anne Tyler', 'A Spool of Blue Thread', 0.973),
+    ('Chad Harbach', 'The Art of Fielding', 0.969),
+    ('Anthony Pryde', 'nightfall', 0.967),
+    ('A. E. W. (Alfred Edward Woodley) Mason', 'the summons', 0.965),
+    ('Ben Jonson', 'the alchemist', 0.964),
+    ('Coningsby Dawson', 'the little house', 0.96),
+    ('Anton Pavlovich Chekhov', 'the seagull', 0.957),
+    ('Charles Dickens', 'oliver twist', 0.954),
+    ('Aristophanes', 'lysistrata', 0.95),
+    ('Charles A. (Charles Arthur) Conant', 'alexander hamilton', 0.947)]
+
+
+
+ Orson Scott Card Speaker for the Dead
+[   (   'Cheryl Strayed',
+        'Wild_ From Lost to Found on the Pacific Crest Trail',
+        0.992),
+    (   'Atul Gawande',
+        'Being Mortal_Medicine and What Matters in the End',
+        0.987),
+    ('Ben Winter', 'Underground Airlines', 0.979),
+    ('A.J. Finn', 'The Woman in the Window', 0.976),
+    ('Christina Kline', 'Orphan Train', 0.974),
+    ('Ben Horowitz', 'The Hard Thing About Hard Thing', 0.972),
+    ('Andy Weir', 'Artemis', 0.969),
+    ('Charlotte Brontë', 'the professor', 0.965),
+    ('Aziz Ansari', 'Modern Romance', 0.961),
+    ('Angie Thomas', 'The Hate U Give', 0.953)]
+
+
+
+ Douglas Adams Hitchhiker 05 Mostly Harmless
+[   (   'Cheryl Strayed',
+        'Wild_ From Lost to Found on the Pacific Crest Trail',
+        0.985),
+    ('A.J. Finn', 'The Woman in the Window', 0.978),
+    (   'Atul Gawande',
+        'Being Mortal_Medicine and What Matters in the End',
+        0.973),
+    ('Ben Winter', 'Underground Airlines', 0.967),
+    ('Aziz Ansari', 'Modern Romance', 0.965),
+    ('Blake Crouch', 'Dark Matter', 0.965),
+    ('Ben Horowitz', 'The Hard Thing About Hard Thing', 0.964),
+    ('Christina Kline', 'Orphan Train', 0.961),
+    ('Andy Weir', 'Artemis', 0.958),
+    ('Charlotte Brontë', 'the professor', 0.955)]
+
+
+
+ William Shakespeare the taming of the shrew
+[   ('Andy Weir', 'Artemis', 0.957),
+    ('Christina Kline', 'Orphan Train', 0.95),
+    ('Ben Winter', 'Underground Airlines', 0.943),
+    (   'Cheryl Strayed',
+        'Wild_ From Lost to Found on the Pacific Crest Trail',
+        0.943),
+    ('Atul Gawande', 'Being Mortal_Medicine and What Matters in the End', 0.94),
+    ('Ben Horowitz', 'The Hard Thing About Hard Thing', 0.928),
+    ('A.J. Finn', 'The Woman in the Window', 0.928),
+    ('Charlotte Brontë', 'the professor', 0.926),
+    ('Anne Brontë', 'the tenant of wildfell hall', 0.926),
+    ('Angie Thomas', 'The Hate U Give', 0.905)]
+
+
+
+ Frank Herbert Dune 05 Heretics of Dune
+[   (   'Cheryl Strayed',
+        'Wild_ From Lost to Found on the Pacific Crest Trail',
+        0.991),
+    (   'Atul Gawande',
+        'Being Mortal_Medicine and What Matters in the End',
+        0.979),
+    ('A.J. Finn', 'The Woman in the Window', 0.975),
+    ('Ben Winter', 'Underground Airlines', 0.975),
+    ('Christina Kline', 'Orphan Train', 0.975),
+    ('Andy Weir', 'Artemis', 0.971),
+    ('Ben Horowitz', 'The Hard Thing About Hard Thing', 0.967),
+    ('Charlotte Brontë', 'the professor', 0.964),
+    ('Blake Crouch', 'Dark Matter', 0.96),
+    ('Aziz Ansari', 'Modern Romance', 0.956)]

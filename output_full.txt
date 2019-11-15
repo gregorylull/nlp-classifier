@@ -1,0 +1,29 @@
+[   ('books_glob', '*.txt'),
+    ('count__ngram_range', (1, 2)),
+    ('end', 50),
+    ('kmeans__cluster_num', 10),
+    ('kmeans__cluster_num_tune', array([ 5,  7,  9, 11, 13, 15, 17, 19])),
+    ('lsa__n_components', 10),
+    ('lsa__n_components_tune', 50),
+    ('minimum_lines', 500),
+    ('nmf__n_components', 100),
+    ('percentages', [(0.05, 0.25)]),
+    ('start', 50),
+    ('tfidf__ngram_range', (1, 2))]
+
+ books_glob-*.txt__count__ngram_range-(1, 2)__end-50__kmeans__cluster_num-10__kmeans__cluster_num_tune-[ 5  7  9 11 13 15 17 19]__lsa__n_components-10__lsa__n_components_tune-50__minimum_lines-500__nmf__n_components-100__percentages-[(0.05, 0.25)]__start-50__tfidf__ngram_range-(1, 2)
+
+ Looking at: ('tfidf', 'lsa', 'kmeans')
+
+Running MVP code
+
+
+Looking at 928 docs.
+[   'data/ebook_output/Gary Chapman - The 5 Love Languages.txt',
+    'data/ebook_output/Malcolm Gladwell - David and Goliath.txt',
+    'data/ebook_output/Dave Eggers - Circle, The.txt']
+searching for cached docs... src/cached_docs/doc_005_025_txt_e23bba8d4de11549060330490a73e7a0dcd225f5.pkl
+doc cleaned 0% 1/928, Malcolm Gladwell - David and Goliath
+doc cleaned 5% 50/928, Robert Kiyosaki - Rich Dad, Poor Dad
+doc cleaned 10% 99/928, Theodore Dreiser - sister carrie
+doc cleaned 15% 147/928, Max Tadlock - cause of death

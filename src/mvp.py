@@ -2,6 +2,7 @@
 
 import pandas as pd
 import numpy as np
+import json
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.preprocessing import Normalizer
 
@@ -39,7 +40,11 @@ TOKENIZER_TYPE = 'tfidf'  # count | tfidf
 DIM_REDUCER_TYPE = 'lsa'  # lsa | nmf
 MODEL_TYPE = 'kmeans'    # kmeans | dbscan
 
+combo_types = (TOKENIZER_TYPE, DIM_REDUCER_TYPE, MODEL_TYPE) 
+
 pp = pprint.PrettyPrinter(indent=4)
+
+print('\n Looking at:', combo_types)
 
 # AB* is about 50 books
 GLOB_PATH = f'{DATA}**/{clean_config.books_glob}'
@@ -283,14 +288,26 @@ if __name__ == '__main__':
 
     results = {}
     for index, predicted in enumerate(predicted_given):
-        print('\n\n\n',author_title_test[index])
+        at = author_title_test[index]
+        print('\n\n\n', at[0], at[1])
         similar = author_titles_train[cluster_model.labels_ == predicted]
-        csim = cosine_similarity(docs_reduced, docs_reduced_given[index].reshape(1, 100)).round(3)
+        csim = cosine_similarity(docs_reduced, docs_reduced_given[index].reshape(1, 10)).round(3)
         zipped = list(zip(similar, csim))
         sortedz = sorted(zipped, key=lambda x: x[1][0], reverse=True)
         top10 = sortedz[:10]
-        pp.pprint((top10[0], top10[1][0]))
+        top10_clean = [(entry[0][0], entry[0][1], entry[1][0]) for entry in top10]
+        pp.pprint(top10_clean)
+
+        results[(at[0], at[1])] = top10_clean
+    
+    filename_top10 = f'top10_{combo_types}_{clean_config.get_param_postfix()}'
+    # with open(f'{filename_top10}.json', 'w') as writefile:
+    #     json.dump(results, writefile)
+    # pd.DataFrame(results).to_csv(f'{filename_top10}.tsv', sep='\t')
+
+
         
+    
 
 
 

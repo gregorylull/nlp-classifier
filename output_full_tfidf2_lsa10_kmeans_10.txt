@@ -1,0 +1,323 @@
+[   ('books_glob', '*.txt'),
+    ('count__ngram_range', (1, 2)),
+    ('end', 50),
+    ('kmeans__cluster_num', 10),
+    ('kmeans__cluster_num_tune', array([ 5,  7,  9, 11, 13, 15, 17, 19])),
+    ('lsa__n_components', 10),
+    ('lsa__n_components_tune', 50),
+    ('minimum_lines', 500),
+    ('nmf__n_components', 100),
+    ('percentages', [(0.05, 0.25)]),
+    ('start', 50),
+    ('tfidf__ngram_range', (1, 2))]
+
+ books_glob-*.txt__count__ngram_range-(1, 2)__end-50__kmeans__cluster_num-10__kmeans__cluster_num_tune-[ 5  7  9 11 13 15 17 19]__lsa__n_components-10__lsa__n_components_tune-50__minimum_lines-500__nmf__n_components-100__percentages-[(0.05, 0.25)]__start-50__tfidf__ngram_range-(1, 2)
+
+ Looking at: ('tfidf', 'lsa', 'kmeans')
+
+Running MVP code
+
+
+Looking at 929 docs.
+[   'data/ebook_output/Gary Chapman - The 5 Love Languages.txt',
+    'data/ebook_output/Malcolm Gladwell - David and Goliath.txt',
+    'data/ebook_output/Dave Eggers - Circle, The.txt']
+
+getting cached pipeline_fitting
+searching for cached docs... src/cached_docs/doc_005_025_txt_ce4ee0dbddcf4d83e424389626c0aadd9fcfae14.pkl
+
+  getting cached docs doc_005_025_txt_ce4ee0dbddcf4d83e424389626c0aadd9fcfae14.pkl
+topics for "test" data
+
+Topic  0
+pron, say, like, know, look, come, think, time, man, good, tell, want, day, thing, way, hand, little, feel, pron know, people
+
+Topic  1
+man, time, good, people, come, great, year, day, work, new, life, way, thou, know, world, little, old, long, thing, state
+
+Topic  2
+thou, thy, man, say, haue, thee, mr, sir, shall, come, lord, mrs, hath, king, pron haue, ye, th, lady, pg, little
+
+Topic  3
+say, harry, mr, look, weasley, mrs, hermione, ron, little, mr weasley, come, think, dumbledore, say pron, mrs weasley, know, say harry, door, say mr, ask
+
+Topic  4
+harry, haue, weasley, hermione, ron, say, thou, dumbledore, mr weasley, mrs weasley, pron haue, say harry, loue, thy, thee, hogwarts, hagrid, albus, like, selfe
+
+Topic  5
+gutenberg library, producer free, free ebook, library producer, ebook search, ebook, project gutenberg, gutenberg, producer, library, project, search, free, man, say, leto, paul, lydia, look, like
+
+Topic  6
+harry, weasley, hermione, ron, holmes, pron, pg, mr, dumbledore, mr weasley, mrs weasley, say harry, mrs, albus, hogwarts, hagrid, livia, vernon, uncle vernon, malfoy
+
+Topic  7
+langdon, fache, vittoria, kohler, sienna, harry, katherine, edmond, kirsch, sophie, saunière, sato, langdon say, weasley, hermione, man, trish, valdespino, ávila, provost
+
+Topic  8
+mr, holmes, haue, langdon, mrs, livia, charlotte, ingram, pron haue, lord ingram, watson, mrs watson, miss holmes, loue, lady, say, miss, sir, selfe, lady ingram
+
+Topic  9
+hamilton, obama, holmes, slave, washington, livia, haue, man, president, american, garfield, white, seward, new, government, new york, york, jefferson, union, ser
+
+finished
+
+
+
+
+ Arthur Conan Doyle the hound of the baskervilles
+[   ('Edith Wharton', 'sanctuary', 0.988),
+    ('Winston Churchill', 'the crossing', 0.981),
+    ('Ruth Hogan', 'The Keeper of Lost Things', 0.979),
+    ('Lillian Li', 'Number One Chinese Restaurant', 0.979),
+    ('Mark Manson', 'The Subtle Art of Not Giving a F_ck', 0.976),
+    ('NK Jemisin', 'The Obelisk Gate [Broken Earth 2]', 0.974),
+    ('The Corrections', 'Jonathan Franzen', 0.974),
+    ('Neel Mukherjee', 'The Lives of Others', 0.973),
+    ('Grace Livingston Hill', 'the witness', 0.973),
+    ('Sonia Sotomayor', 'My Beloved World', 0.971)]
+
+
+
+ C. S. Lewis Prince Caspian
+[   ('Jack London', 'the game', 0.991),
+    ('Elizabeth Wein', 'Code Name Verity', 0.989),
+    ('Liane Moriarty', 'Big Little Lies', 0.983),
+    ('Anton Pavlovich Chekhov', 'the seagull', 0.98),
+    ('Norman Juster', 'The Phantom Tollbooth', 0.978),
+    ('Allen Glasser', 'the martian', 0.974),
+    ('Marcet Haldeman', 'Julius dust', 0.972),
+    ('Robert Silverberg', 'birds of a feather', 0.969),
+    ('Jhumpa Lahiri', 'The Lowland', 0.969),
+    ('Anne Ursu & Erin Mcguire', 'Breadcrumbs (v5.0)', 0.968)]
+
+
+
+ Suzanne Collins Catching Fire
+[   ('James Comey', 'A Higher Loyalty', 1.0),
+    ('Henri Barbusse', 'light', 0.999),
+    ('James Patterson', 'The President Is Missing', 0.999),
+    ('Harold Titus', 'the last straw', 0.999),
+    ('Walt Whitman', 'leaves of grass', 0.999),
+    ('Jack London', 'martin eden', 0.999),
+    ('David Sedaris', "Let's Explore Diabetes with Owls", 0.998),
+    ('China Mieville', 'Embassytown (v5.0)', 0.998),
+    ('Ransom Riggs', "Miss Peregrine's Home for Pecu_ren (v5.0)", 0.997),
+    ('Gabrielle Hamilton', 'Blood, Bones, and Butter', 0.997)]
+
+
+
+ J.K. Rowling Harry Potter and the Deathly Hallows (7)
+[   ('JK Rowling', 'Harry Potter and the Cursed Child', 0.426),
+    ('J.K. Rowling', 'Harry Potter and the Prisoner of Azkaban (3)', 0.416),
+    ('J.K. Rowling', 'Harry Potter and the Goblet of Fire (4)', 0.412),
+    ('J.K. Rowling', 'Harry Potter and the Half Blood Prince (6)', 0.399),
+    ('J.K. Rowling', 'Harry Potter and the Order of the Phoenix (5)', 0.393),
+    ('J.K. Rowling', "Harry Potter and the Sorcerer's Stone (1)", 0.388)]
+
+
+
+ Frank Herbert Dune 02 Dune Messiah
+[   ('David Mitchell', 'Cloud Atlas', 0.995),
+    ('John Grisham', 'The Firm', 0.994),
+    ('Charles Dickens', 'bleak house', 0.993),
+    ('David Foster Wallace', 'Infinite Jest', 0.993),
+    ('Robert W. (Robert William) Chambers', 'the reckoning', 0.993),
+    ('Ernest Cline', 'Ready Player One', 0.992),
+    ('George Saunders', 'Tenth of December', 0.991),
+    ('Harriet Beecher Stowe', 'uncle toms cabin', 0.991),
+    ('Arthur Conan Doyle', 'a study in scarlet', 0.99),
+    ('Joshua Ferris', 'Then We Came to the End', 0.99)]
+
+
+
+ Douglas Adams Hitchhiker 02 The Restaurant at the End of the Universe
+[   ('Elizabeth Wein', 'Code Name Verity', 0.998),
+    ('Norman Juster', 'The Phantom Tollbooth', 0.996),
+    ('Anton Pavlovich Chekhov', 'the seagull', 0.995),
+    ('Allen Glasser', 'the martian', 0.994),
+    ('George Eliot', 'daniel deronda', 0.993),
+    ('Anne Ursu & Erin Mcguire', 'Breadcrumbs (v5.0)', 0.993),
+    ('Shobha Rao', 'Girls Burn Brighter', 0.992),
+    (   'Robert Louis Stevenson',
+        'the strange case of dr jekyll and mr hyde',
+        0.991),
+    ('Marcet Haldeman', 'Julius dust', 0.991),
+    ('Erin Morgenstern', 'The Night Circus', 0.991)]
+
+
+
+ Charles Dickens great expectations
+[   ('David Foster Wallace', 'Infinite Jest', 0.997),
+    ('Neel Mukherjee', 'The Lives of Others', 0.996),
+    ('Arthur Conan Doyle', 'a study in scarlet', 0.996),
+    ('Ernest Cline', 'Ready Player One', 0.996),
+    ('Joshua Foer', 'Moonwalking with Einstein', 0.996),
+    ('Egerton Ryerson', 'the story of my life', 0.995),
+    ('Winston Churchill', 'the crossing', 0.994),
+    ('Robert W. (Robert William) Chambers', 'the reckoning', 0.993),
+    ('Plato', 'apology', 0.993),
+    ('David Lagercrantz', "Girl in the Spider's Web", 0.992)]
+
+
+
+ Charles Dickens a tale of two cities
+[   ('Kimberly McCreight', 'Reconstructing Amelia', 0.997),
+    ('Mitch Cullin', 'A Slight Trick of the Mind', 0.992),
+    ('Emily Brontë', 'wuthering heights', 0.99),
+    ('Sunil Yapa', 'Your Heart Is a Muscle the Size of a Fist', 0.986),
+    ('Wilkie Collins', 'the woman in white', 0.986),
+    ('Graham', 'Felsen, Sam Green', 0.985),
+    ('The Corrections', 'Jonathan Franzen', 0.985),
+    ('Neel Mukherjee', 'The Lives of Others', 0.984),
+    ('Octavus Roy Cohen', 'midnight', 0.984),
+    ('Will McIntosh', 'Love Minus Eighty', 0.984)]
+
+
+
+ Stieg Larsson The Girl Who Played with Fire
+[   ('F. Scott Fitzgerald', 'The Great Gatsby', 1.0),
+    ('Evan Osnos', 'Age of Ambition', 0.999),
+    (   'Jacob Tomsky',
+        'Heads in Beds_ A Reckless Memoir of Hotels, Hustles, and So Called Hospitality',
+        0.999),
+    ('Anna Sewell', 'black beauty', 0.998),
+    (   'Douglas Adams',
+        "Dirk Gently 01 Dirk Gently's Holistic Detective Agency",
+        0.998),
+    ('Justin Cronin', 'The Twelve (Passage #2)', 0.998),
+    ('Thomas Hardy', 'jude the obscure', 0.998),
+    ('Pamela Clare', '[I TEAM 05] Breaking Point (v5.0)', 0.997),
+    ('Thomas Hardy', 'the return of the native', 0.997),
+    ('Mikhail Iurevich Lermontov', 'a hero of our time', 0.997)]
+
+
+
+ Orson Scott Card Children of the Mind
+[   ('George Saunders', 'Tenth of December', 0.998),
+    ('David Mitchell', 'Cloud Atlas', 0.997),
+    ('Joshua Ferris', 'Then We Came to the End', 0.997),
+    ('Charles Dickens', 'bleak house', 0.996),
+    ('David Foster Wallace', 'Infinite Jest', 0.996),
+    ('N.K Jemisin', 'The Stone Sky [Broken Earth 3]', 0.996),
+    ('B. J. Novak', 'One More Thing_ Stories and Other Stories', 0.995),
+    ('James Joyce', 'ulysses', 0.995),
+    ('Jane Austen', 'emma', 0.994),
+    (   'Atul Gawande',
+        'Being Mortal_Medicine and What Matters in the End',
+        0.994)]
+
+
+
+ J.K. Rowling Harry Potter and the Chamber of Secrets (2)
+[   ('JK Rowling', 'Harry Potter and the Cursed Child', 0.37),
+    ('J.K. Rowling', 'Harry Potter and the Prisoner of Azkaban (3)', 0.36),
+    ('J.K. Rowling', 'Harry Potter and the Goblet of Fire (4)', 0.354),
+    ('J.K. Rowling', 'Harry Potter and the Half Blood Prince (6)', 0.344),
+    ('J.K. Rowling', "Harry Potter and the Sorcerer's Stone (1)", 0.34),
+    ('J.K. Rowling', 'Harry Potter and the Order of the Phoenix (5)', 0.336)]
+
+
+
+ Jane Austen pride and prejudice
+[   ('Salman Rushdie', "Midnight's Children", 0.997),
+    ('James S. A. Corey', 'Leviathan Wakes (v5.0)', 0.993),
+    ('Eleanor H. (Eleanor Hodgman) Porter', 'pollyanna', 0.992),
+    ('Harper Lee', 'Go Set a Watchman', 0.991),
+    (   'G. K. (Gilbert Keith) Chesterton',
+        'the man who was thursday a nightmare',
+        0.991),
+    ('C. S. Lewis', 'Silver Chair, The', 0.99),
+    ('Edgar Rice Burroughs', 'the gods of mars', 0.985),
+    ('Jane Austen', 'lady susan', 0.983),
+    ('Markus Zusak', 'The Book Thief', 0.981),
+    ('Thomas Hardy', 'far from the madding crowd', 0.981)]
+
+
+
+ Church of Jesus Christ of Latter day Saints the book of mormon
+[   ('Janet Reitman', 'Inside Scientology (v5.0)', 0.938),
+    ('Jhumpa Lahiri', 'The Namesake', 0.935),
+    ('James Stephens', 'mary mary', 0.92),
+    ('H. Beam Piper', 'genesis', 0.901),
+    ('Thomas Hobbes', 'leviathan', 0.882),
+    ('Washington Irving', 'the legend of sleepy hollow', 0.843),
+    ('Frank Brady', "Endgame Bobby Fischer's Remarkable Rise and Fall", 0.833),
+    ('Clifton Johnson', 'bluebeard', 0.812),
+    ('Richard Wagner', 'the valkyries', 0.807),
+    ('Boyd Ellanby', 'chain reaction', 0.806)]
+
+
+
+ C. S. Lewis Magician's Nephew, The
+[   ('Elizabeth Wein', 'Code Name Verity', 0.998),
+    ('Anton Pavlovich Chekhov', 'the seagull', 0.99),
+    ('Norman Juster', 'The Phantom Tollbooth', 0.989),
+    ('George Eliot', 'daniel deronda', 0.989),
+    ('L. Frank (Lyman Frank) Baum', 'ozma of oz', 0.988),
+    ('Marcet Haldeman', 'Julius dust', 0.987),
+    ('Anne Ursu & Erin Mcguire', 'Breadcrumbs (v5.0)', 0.987),
+    ('Robert Silverberg', 'birds of a feather', 0.985),
+    ('Allen Glasser', 'the martian', 0.985),
+    ('Nikolai Vasilevich Gogol', 'dead souls', 0.984)]
+
+
+
+ Orson Scott Card Speaker for the Dead
+[   ('B. J. Novak', 'One More Thing_ Stories and Other Stories', 0.999),
+    ('Brene Brown', 'Daring Greatly', 0.998),
+    ('Marjorie Benton Cooke', 'bambi', 0.998),
+    ('David Ignatius', 'The Director', 0.998),
+    ('Fyodor Dostoyevsky', 'crime and punishment', 0.997),
+    (   'Douglas Adams',
+        "Dirk Gently 01 Dirk Gently's Holistic Detective Agency",
+        0.996),
+    (   'Jacob Tomsky',
+        'Heads in Beds_ A Reckless Memoir of Hotels, Hustles, and So Called Hospitality',
+        0.996),
+    ('Harriet Beecher Stowe', 'uncle toms cabin', 0.996),
+    ('Sinclair Lewis', 'main street', 0.995),
+    ('Evan Osnos', 'Age of Ambition', 0.995)]
+
+
+
+ Douglas Adams Hitchhiker 05 Mostly Harmless
+[   ('Joshua Ferris', 'Then We Came to the End', 0.998),
+    ('George Saunders', 'Tenth of December', 0.997),
+    ('Samuel Shem', 'The House of God', 0.997),
+    ('Jane Austen', 'emma', 0.997),
+    (   'Atul Gawande',
+        'Being Mortal_Medicine and What Matters in the End',
+        0.997),
+    ('Jon Ronson', "So You've Been Publicly Shamed", 0.996),
+    ('David Mitchell', 'Cloud Atlas', 0.995),
+    ('B. J. Novak', 'One More Thing_ Stories and Other Stories', 0.995),
+    ('Fyodor Dostoyevsky', 'crime and punishment', 0.995),
+    ('N.K Jemisin', 'The Stone Sky [Broken Earth 3]', 0.995)]
+
+
+
+ William Shakespeare the taming of the shrew
+[   ('William Shakespeare', 'the winters tale', 0.962),
+    ('William Shakespeare', 'a midsummer nights dream', 0.615),
+    ('William Shakespeare', 'as you like it', 0.6),
+    ('William Shakespeare', 'king lear', 0.598),
+    ('William Shakespeare', 'much ado about nothing', 0.597),
+    ('Samuel Rowlands', 'the bride', 0.594),
+    ('William Shakespeare', 'henry v', 0.59),
+    ('William Shakespeare', 'othello', 0.581),
+    ('William Shakespeare', 'twelfth night', 0.557),
+    ('William Shakespeare', 'hamlet', 0.552)]
+
+
+
+ Frank Herbert Dune 05 Heretics of Dune
+[   ('Earl of Beaconsfield Disraeli Disraeli', 'endymion', 0.996),
+    ('Mary Doria Russell', 'The Sparrow', 0.995),
+    ('Camilla Lackberg', 'The Ice Princess', 0.995),
+    ('George Eliot', 'the mill on the floss', 0.994),
+    ('Anthony Pryde', 'nightfall', 0.994),
+    ('Robert Shea', 'resurrection', 0.993),
+    ('Khaled Hosseini', 'And the Mountains Echoed', 0.993),
+    ('Kate Atkinson', 'Transcription', 0.993),
+    ('Hugh Howey', 'Wool Omnibus Edition', 0.993),
+    ('JD Vance', 'Hillbilly Elegy', 0.993)]

@@ -18,7 +18,7 @@ class CleanConfig:
 
         # books that start with A-<character> only
         # as reference A-F is about 250 files
-        self.books_glob = '[a-cA-C]*.txt'
+        # self.books_glob = '[a-cA-C]*.txt'
 
         # skip publisher info, table of contents, forewords, etc.
         self.start = 50
@@ -81,14 +81,14 @@ class ModelConfig:
         # n_components could be a range, 1% - 10% of features,
         # for 40k words that's 400 components 4000 components.
         # However, I only have 1000 documents.
-        self.lsa__n_components = 100
-        self.lsa__n_components_tune = 200
+        self.lsa__n_components = 10
+        self.lsa__n_components_tune = 50
 
         self.nmf__n_components = 100
 
-        self.kmeans__cluster_num = 20
+        self.kmeans__cluster_num = 10
         # self.kmeans__cluster_num_tune = np.arange(5, 100, 5)
-        self.kmeans__cluster_num_tune = np.arange(5, 50, 5)
+        self.kmeans__cluster_num_tune = np.arange(5, 20, 2)
 
         self.tfidf__ngram_range = (1, 2)
         self.count__ngram_range = (1, 2)
